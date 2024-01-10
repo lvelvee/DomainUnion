@@ -1,0 +1,29 @@
+name: ptest
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    
+    - cron: '0 0 * * *'
+      
+jobs:
+  Explore:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          cache: 'pip'
+          python-version: 3.9
+
+      - name: Run
+        env:
+          SEA_TABLE_TOKEN: ${{ secrets.SEA_TABLE_TOKEN }}
+        run: | 
+          pip install -r requirements.txt
+          python3 main.py
